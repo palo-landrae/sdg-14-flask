@@ -24,7 +24,7 @@ def index():
 @app.route('/beach_litter', methods=['GET'])
 def get_beach_litter():
     beach_litter = mongo.db.beach_litter
-    list_cur = list(beach_litter.find({"Year": "2018"},{"_id":0}))
+    list_cur = list(beach_litter.find({"Code": {"$ne":""}},{"_id":0}))
     return dumps(list_cur)
 
 # Checks to see if the name of the package is the run as the main package.
