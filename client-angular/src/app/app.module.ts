@@ -4,10 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GoogleChartsModule } from 'angular-google-charts';
 
 import { AppComponent } from './app.component';
+import { BeachLitterChartComponent } from './beach-litter-chart/beach-litter-chart.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BeachLitterChartComponent
   ],
   imports: [
     BrowserModule,
