@@ -1,3 +1,4 @@
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +15,8 @@ import { BeachLitterChartComponent } from './beach-litter-chart/beach-litter-cha
   imports: [
     BrowserModule,
     HttpClientModule,
-    GoogleChartsModule
+    GoogleChartsModule,
+    NgxSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

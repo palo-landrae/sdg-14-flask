@@ -21,10 +21,10 @@ def index():
     return "Hello world!"
 
 # Questa route effettua una find() su tutto il DB (si limita ai primi 100 risultati)
-@app.route('/beach_litter', methods=['GET'])
-def get_beach_litter():
+@app.route('/beach_litter/<anno>', methods=['GET'])
+def get_beach_litter(anno):
     beach_litter = mongo.db.beach_litter
-    list_cur = list(beach_litter.find({"Code": {"$ne":""}},{"_id":0}))
+    list_cur = list(beach_litter.find({"Code": {"$ne":""}, "Year": {"$lte": anno}},{"_id":0}))
     return dumps(list_cur)
 
 # Checks to see if the name of the package is the run as the main package.

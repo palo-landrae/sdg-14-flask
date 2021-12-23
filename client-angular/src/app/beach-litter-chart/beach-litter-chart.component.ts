@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BeachLitter } from '../models/beach_litter.model';
 import { ChartData } from '../models/geochart.model';
+import { Options } from '@angular-slider/ngx-slider';
 
 @Component({
   selector: 'app-beach-litter-chart',
@@ -18,6 +19,11 @@ export class BeachLitterChartComponent implements OnInit {
   chartColumns = [];
   chartOptions: object;
 
+  value: number = 2020;
+  options: Options = {
+    floor: 2015,
+    ceil: 2020,
+  };
   constructor(public http: HttpClient) { 
     this.chartOptions = {
       width: 720,
@@ -51,6 +57,7 @@ export class BeachLitterChartComponent implements OnInit {
   }
 
   prepareBeachLitterData = (data: BeachLitter[]) => {
+   
     console.log(data);
     for (var i in data) {
       this.chartData.push([
@@ -66,12 +73,25 @@ export class BeachLitterChartComponent implements OnInit {
         `,
       ]);
     }
+    this.chartDataArray = [];
     this.chartDataArray.push(new ChartData('EN_MAR_BEALITSQ', 'GeoChart', this.chartData, this.chartColumns, this.chartOptions));
     console.log(this.chartDataArray)
   };
+  
+ 
+  cambiaAnno(anno): boolean {
+    let val = anno.value; //Commenta qui
+    console.log(val);
+    this.obsBeachLitter = this.http.get<BeachLitter[]>(
+      `http://127.0.0.1:5000/beach_litter/${val}`
+    );
+    this.obsBeachLitter.subscribe(this.prepareBeachLitterData);
+    return false;
+  }
+
   ngOnInit(): void {
     this.obsBeachLitter = this.http.get<BeachLitter[]>(
-      'http://127.0.0.1:5000/beach_litter'
+      `http://127.0.0.1:5000/beach_litter/2021`
     );
     this.obsBeachLitter.subscribe(this.prepareBeachLitterData);
   }
